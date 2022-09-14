@@ -1,15 +1,14 @@
-import { View, Text } from 'react-native'
+import { View, Image, SafeAreaView } from 'react-native'
 
 import { styles } from './styles'
-
-// type HomeProps = {
-
-// }
+import logo from '../../assets/logo-nlw-esports.png'
 
 export const Home = () => {
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-    </View>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <Image source={logo} style={styles.logo} />
+      </View>
+    </SafeAreaView>
   )
 }
