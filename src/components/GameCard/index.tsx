@@ -1,0 +1,38 @@
+import { LinearGradient } from 'expo-linear-gradient'
+import {
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+  ImageSourcePropType,
+  TouchableOpacityProps
+} from 'react-native'
+import { THEME } from '../../theme'
+
+import { styles } from './styles'
+
+export type GameCardData = {
+  id: string
+  name: string
+  ads: string
+  cover: ImageSourcePropType
+}
+
+type GameCardProps = {
+  data: GameCardData
+} & TouchableOpacityProps
+
+export const GameCard = ({ data }: GameCardProps) => {
+  return (
+    <TouchableOpacity
+      onPress={() => console.log('Press')}
+      style={styles.container}
+    >
+      <ImageBackground source={data.cover} style={styles.cover}>
+        <LinearGradient colors={THEME.COLORS.FOOTER} style={styles.footer}>
+          <Text style={styles.name}>{data.name}</Text>
+          <Text style={styles.ads}>{data.ads} anúncios</Text>
+        </LinearGradient>
+      </ImageBackground>
+    </TouchableOpacity>
+  )
+}
