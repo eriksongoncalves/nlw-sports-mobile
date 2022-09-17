@@ -11,15 +11,16 @@ import { RouteGameParams } from '../../@types/navigation'
 import { THEME } from '../../theme'
 import { Heading } from '../../components/Heading'
 import { DuoCard } from '../../components/DuoCard'
+import { DuoMatch } from '../../components/DuoMatch'
 
 type DuoData = {
   id: string
   name: string
-  weekDays: string[]
-  yearsPlaying: number
-  useVoiceChanel: boolean
-  hoursStart: string
-  hoursEnd: string
+  weekDays: string
+  yearsPaying: number
+  useVoiceChannel: boolean
+  hourStart: string
+  hourEnd: string
 }
 
 export const Game = () => {
@@ -27,13 +28,18 @@ export const Game = () => {
   const navigation = useNavigation()
   const game = route.params as RouteGameParams
   const [duos, setDuos] = useState<DuoData[]>([])
+  const [discordDuoSelected, setDiscordDuoSelected] = useState('')
+
+  const getDiscordUser = (adsId: string) => {
+    fetch(`http://192.168.0.16:3333/ads/${adsId}/discord`)
+      .then(response => response.json())
+      .then(data => setDiscordDuoSelected(data.discord))
+  }
 
   useEffect(() => {
     fetch(`http://192.168.0.16:3333/games/${game.id}/ads`)
       .then(response => response.json())
-      .then(data => {
-        setDuos(data)
-      })
+      .then(data => setDuos(data))
   }, [game.id])
 
   const handleGoBack = () => {
@@ -69,12 +75,18 @@ export const Game = () => {
           data={duos}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <DuoCard data={item} onConnect={() => {}} />
+            <DuoCard data={item} onConnect={() => getDiscordUser(item.id)} />
           )}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.contentList}
           style={styles.containerList}
+        />
+
+        <DuoMatch
+          visible={discordDuoSelected.length > 0}
+          discord={discordDuoSelected}
+          onClose={() => setDiscordDuoSelected('')}
         />
       </SafeAreaView>
     </Background>

@@ -8,11 +8,11 @@ import { THEME } from '../../theme'
 type DuoData = {
   id: string
   name: string
-  weekDays: string[]
-  yearsPlaying: number
-  useVoiceChanel: boolean
-  hoursStart: string
-  hoursEnd: string
+  weekDays: string
+  yearsPaying: number
+  useVoiceChannel: boolean
+  hourStart: string
+  hourEnd: string
 }
 
 type DuoCardProps = {
@@ -25,18 +25,18 @@ export const DuoCard = ({ data, onConnect }: DuoCardProps) => {
     <View style={styles.container}>
       <DuoInfo label="Nome" value={data.name} />
 
-      <DuoInfo label="Tempo de jogo" value={`${data.yearsPlaying} anos`} />
+      <DuoInfo label="Tempo de jogo" value={`${data.yearsPaying} anos`} />
 
       <DuoInfo
         label="Disponibilidade"
-        value={`${data.weekDays.length} dias \u2022 ${data.hoursStart} -  ${data.hoursEnd}`}
+        value={`${data.weekDays.length} dias \u2022 ${data.hourStart} -  ${data.hourEnd}`}
       />
 
       <DuoInfo
         label="Chamada de audio"
-        value={data.useVoiceChanel ? 'Sim' : 'Não'}
+        value={data.useVoiceChannel ? 'Sim' : 'Não'}
         colorValue={
-          data.useVoiceChanel ? THEME.COLORS.SUCCESS : THEME.COLORS.ALERT
+          data.useVoiceChannel ? THEME.COLORS.SUCCESS : THEME.COLORS.ALERT
         }
       />
 
