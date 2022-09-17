@@ -22,12 +22,9 @@ type GameCardProps = {
   data: GameCardData
 } & TouchableOpacityProps
 
-export const GameCard = ({ data }: GameCardProps) => {
+export const GameCard = ({ data, ...rest }: GameCardProps) => {
   return (
-    <TouchableOpacity
-      onPress={() => console.log('Press')}
-      style={styles.container}
-    >
+    <TouchableOpacity style={styles.container} {...rest}>
       <ImageBackground source={{ uri: data.bannerUrl }} style={styles.cover}>
         <LinearGradient colors={THEME.COLORS.FOOTER} style={styles.footer}>
           <Text style={styles.name}>{data.title}</Text>
