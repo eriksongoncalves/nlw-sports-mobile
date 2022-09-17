@@ -3,7 +3,6 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  ImageSourcePropType,
   TouchableOpacityProps
 } from 'react-native'
 import { THEME } from '../../theme'
@@ -12,9 +11,11 @@ import { styles } from './styles'
 
 export type GameCardData = {
   id: string
-  name: string
-  ads: string
-  cover: ImageSourcePropType
+  title: string
+  _count: {
+    ads: number
+  }
+  bannerUrl: string
 }
 
 type GameCardProps = {
@@ -27,10 +28,10 @@ export const GameCard = ({ data }: GameCardProps) => {
       onPress={() => console.log('Press')}
       style={styles.container}
     >
-      <ImageBackground source={data.cover} style={styles.cover}>
+      <ImageBackground source={{ uri: data.bannerUrl }} style={styles.cover}>
         <LinearGradient colors={THEME.COLORS.FOOTER} style={styles.footer}>
-          <Text style={styles.name}>{data.name}</Text>
-          <Text style={styles.ads}>{data.ads} anúncios</Text>
+          <Text style={styles.name}>{data.title}</Text>
+          <Text style={styles.ads}>{data._count.ads} anúncios</Text>
         </LinearGradient>
       </ImageBackground>
     </TouchableOpacity>
